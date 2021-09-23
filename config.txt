@@ -1,0 +1,5 @@
+## Create Project Node
+npm init
+
+## Dependencies
+npm i express
