@@ -6,6 +6,8 @@ npm i express
 npm i @types/express
 npm i typescript --save-dev
 npm i ts-node-dev -D
+npm i knex --save
+npm i sqlite3
 
 ## Cria arquivo config TS
 npx tsc --init
