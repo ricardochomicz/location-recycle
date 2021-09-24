@@ -3,8 +3,9 @@ import routes from "./routes";
 import path from 'path'
 
 const app = express()
-const PORT = 3000
 app.use(routes)
+const PORT = 3333
+
 
 //rota estatica
 app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
