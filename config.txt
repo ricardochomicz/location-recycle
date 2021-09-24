@@ -8,9 +8,14 @@ npm i typescript --save-dev
 npm i ts-node-dev -D
 npm i knex --save
 npm i sqlite3
+npm i ts-node -D
+npm i ts-node-register
 
 ## Cria arquivo config TS
 npx tsc --init
 rootDir = './src
 outDir = './dist
 npx tsc (compila produção)
+
+## Rodar Migração
+npx knex --knexfile knexfile.ts migrate:latest
