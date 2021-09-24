@@ -3,3 +3,12 @@ npm init
 
 ## Dependencies
 npm i express
+npm i @types/express
+npm i typescript --save-dev
+npm i ts-node-dev -D
+
+## Cria arquivo config TS
+npx tsc --init
+rootDir = './src
+outDir = './dist
+npx tsc (compila produção)
