@@ -20,3 +20,7 @@ npx tsc (compila produção)
 ## Rodar Migração
 npx knex --knexfile knexfile.ts migrate:latest
 npm run knex:migrate (incluir o comando acima em script package.json)
+
+## cors
+npm i cors
+npm i --save-dev @types/cors
