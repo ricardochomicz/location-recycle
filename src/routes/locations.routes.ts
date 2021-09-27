@@ -3,10 +3,13 @@ import knex from '../database'
 import multer from 'multer'
 import multerConfig from '../config/multer'
 import { celebrate, Joi } from 'celebrate'
+import isAuthenticated from '../middleware/isAuthenticated'
 
 const locationsRouter = Router()
 
 const upload = multer(multerConfig)
+
+locationsRouter.use(isAuthenticated)
 
 locationsRouter.get('/', async (req, res) => {
     const { city, state, items } = req.query

@@ -24,3 +24,14 @@ npm run knex:migrate (incluir o comando acima em script package.json)
 ## cors
 npm i cors
 npm i --save-dev @types/cors
+
+## validações
+npm i celebrate
+
+## hash password
+npm i bcryptjs
+npm i --save-d @types/bcryptjs
+
+## jsonwebtoken
+npm i jsonwebtoken
+npm i --save-dev @types/jsonwebtoken
