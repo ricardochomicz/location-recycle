@@ -1,12 +1,16 @@
 import { Router } from 'express'
 import knex from '../database'
+import multer from 'multer'
+import multerConfig from '../config/multer'
 
 const locationsRouter = Router()
+
+const upload = multer(multerConfig)
 
 locationsRouter.get('/', async (req, res) => {
     const { city, state, items } = req.query
 
-    const parsedItems = <any>String(items).split(',').map(item => 
+    const parsedItems = <any>String(items).split(',').map(item =>
         //remove espaços da string
         Number(item.trim())
     )
@@ -87,6 +91,24 @@ locationsRouter.post('/', async (req, res) => {
     return res.json({
         message: 'Location Create'
     })
+})
+
+locationsRouter.put('/:id', upload.single('image'), async (req, res) => {
+    const { id } = req.params
+
+    const image = req.file?.filename
+
+    const location = await knex('locations').where('id', id).first()
+
+    if (!location) {
+        return res.status(400).json({ message: 'Location not found!' })
+    }
+
+    //const locationUpdated = {...location, image}
+
+    await knex('locations').update({ ...location, image }).where('id', id)
+
+    return res.json({ message: 'Location updated success' })
 })
 
 
