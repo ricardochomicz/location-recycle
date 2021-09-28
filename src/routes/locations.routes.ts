@@ -70,7 +70,7 @@ locationsRouter.post('/', celebrate({
         city: Joi.string().required(),
         state: Joi.string().required().max(2),
     })
-},{
+}, {
     abortEarly: false
 }), async (req, res) => {
     const {
@@ -85,6 +85,8 @@ locationsRouter.post('/', celebrate({
         items
     } = req.body
 
+    const transaction = await knex.transaction();
+
     const location = {
         image: "fake.png",
         name,
@@ -96,21 +98,27 @@ locationsRouter.post('/', celebrate({
         state,
     }
 
-    const newId = await knex('locations').insert(location)
+    const newId = await transaction('locations').insert(location)
 
-    const locationId = newId[0]
+    const location_id = newId[0]
 
-    const locationItems = items.map((item_id: number) => {
-        return {
-            item_id,
-            location_id: locationId
-        }
-    })
+    const locationItems = items
+        .split(',')
+        .map((item: string) => Number(item.trim()))
+        .map((item_id: number) => {
+            return {
+                item_id,
+                location_id,
+            };
+        });
 
-    await knex('location_items').insert(locationItems)
+    await transaction('location_items').insert(locationItems)
+
+    await transaction.commit()
 
     return res.json({
-        message: 'Location Create'
+        id: location_id,
+        ...location,
     })
 })
 
